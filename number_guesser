@@ -1,1 +1,23 @@
 # Number guessing game
+
+from random import randint
+
+userlower = input("Whazzaaaaaap! Enter your lower bound: ")
+# if isinstance(userlower, int) == False:
+userupper = input("Enter your upper bound: ")
+
+userupper = int(userupper)
+userlower = int(userlower)
+
+print(f'userlower: {userlower}')
+print()
+print(f'userupper: {userupper}')
+
+target = randint(userlower, userupper)
+while True:
+    guess = int(input("Guess, bitch! "))
+    if guess not in range(userlower, userupper+1):
+        print("Out of bounds, motherfucker! Try again.")
+    if guess == target:
+        print('You win, bitch!')
+        break
