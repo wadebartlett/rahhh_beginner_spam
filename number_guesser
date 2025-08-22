@@ -5,17 +5,22 @@ guesscount = 3
 
 userlower = input("Whaddup dork! Enter your lower bound: ")
 userupper = input("Enter your upper bound: ")
-level = input("Enter your difficulty level (easy, normal, or hard): ")
-
 userupper = int(userupper)
 userlower = int(userlower)
 
-if level == 'easy':
-    guesscount = userupper - userlower
-elif level == 'normal':
-    guesscount = (userupper - userlower) // 2
-elif level == 'hard':
-    guesscount = 3
+while True:
+    level = input("Enter your difficulty level (easy, normal, or hard): ")
+    if level == 'easy':
+        guesscount = userupper - userlower
+        break
+    elif level == 'normal':
+        guesscount = (userupper - userlower) // 2
+        break
+    elif level == 'hard':
+        guesscount = 3
+        break
+    else:
+        print('Following instructions isn\'t your strong suit is it, dumbass?')
     
 
 print(f'userlower: {userlower}')
