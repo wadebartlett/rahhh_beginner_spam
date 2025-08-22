@@ -1,23 +1,42 @@
 # Number guessing game
 
 from random import randint
+guesscount = 3
 
-userlower = input("Whazzaaaaaap! Enter your lower bound: ")
-# if isinstance(userlower, int) == False:
+userlower = input("Whaddup dork! Enter your lower bound: ")
 userupper = input("Enter your upper bound: ")
+level = input("Enter your difficulty level (easy, normal, or hard): ")
 
 userupper = int(userupper)
 userlower = int(userlower)
 
+if level == 'easy':
+    guesscount = userupper - userlower
+elif level == 'normal':
+    guesscount = (userupper - userlower) // 2
+elif level == 'hard':
+    guesscount = 3
+    
+
 print(f'userlower: {userlower}')
-print()
 print(f'userupper: {userupper}')
+print()
 
 target = randint(userlower, userupper)
-while True:
+
+while guesscount > 0:
     guess = int(input("Guess, bitch! "))
     if guess not in range(userlower, userupper+1):
-        print("Out of bounds, motherfucker! Try again.")
+        print('Out of bounds, motherfucker! Try again.')
     if guess == target:
-        print('You win, bitch!')
+        print(f'You win, bitch! It took you {guesscount} guesses.')
         break
+    elif guess > target:
+        print('Too high, motherfucker! Guess again.')
+    elif guess < target:
+        print('Too low, motherfucker! Guess again.')
+    guesscount -= 1
+    print(f'You have {guesscount} guesses left. ')
+
+if guesscount <= 0:
+    print("You lose, bitch!")
