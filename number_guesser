@@ -1,47 +1,69 @@
-# Number guessing game
+## Number guessing game
 
 from random import randint
-guesscount = 3
+guesscount = 0
 
-userlower = input("Whaddup dork! Enter your lower bound: ")
-userupper = input("Enter your upper bound: ")
-userupper = int(userupper)
-userlower = int(userlower)
-
+## Input handling for upper and lower bound
+print('Welcome to the guessing game, nerd! You\'re going to guess a number between two numbers you choose!')
+print('Pick your bounds and pick a difficulty level:')
 while True:
-    level = input("Enter your difficulty level (easy, normal, or hard): ")
+    try:
+        userlower = int(input("Enter your lower bound as an integer: "))
+        userupper = int(input("Enter your upper bound as an integer: "))
+    except ValueError:
+        print('Not an integer, motherfucker!')
+    else:
+        if userlower >= userupper:
+            print('Lower bound must be less than upper bound by at least 1. Bitch.')
+        elif userlower < userupper:
+            break
+
+## Input handling for difficulty level
+while True:
+    level = input("Enter your difficulty level ([easy], [normal], or [hard]): ")
     if level == 'easy':
         guesscount = userupper - userlower
         break
     elif level == 'normal':
-        guesscount = (userupper - userlower) // 2
+        guesscount = ((userupper - userlower) // 2) + 1
         break
     elif level == 'hard':
         guesscount = 3
         break
     else:
         print('Following instructions isn\'t your strong suit is it, dumbass?')
-    
 
-print(f'userlower: {userlower}')
-print(f'userupper: {userupper}')
+## Info
+print()
+print("-Parameters-")
+print(f'Lower bound: {userlower}')
+print(f'Upper bound: {userupper}')
 print()
 
+## Variable initialization
+starting_guesses = guesscount
 target = randint(userlower, userupper)
 
+
+## Guessing
 while guesscount > 0:
     guess = int(input("Guess, bitch! "))
     if guess not in range(userlower, userupper+1):
         print('Out of bounds, motherfucker! Try again.')
-    if guess == target:
-        print(f'You win, bitch! It took you {guesscount} guesses.')
-        break
-    elif guess > target:
-        print('Too high, motherfucker! Guess again.')
-    elif guess < target:
-        print('Too low, motherfucker! Guess again.')
+    else:
+        if guess == target:
+            print(f'You win, bitch! It took you {starting_guesses - guesscount} guesses.')
+            break
+        elif guess > target:
+            print('Too high, motherfucker! Guess again.')
+        elif guess < target:
+            print('Too low, motherfucker! Guess again.')
     guesscount -= 1
-    print(f'You have {guesscount} guesses left. ')
+    if guesscount > 1:
+        print(f'You have {guesscount} guesses left. ')
+    elif guesscount == 1:
+        print(f'You have 1 guess left. ')
+        
 
 if guesscount <= 0:
-    print("You lose, bitch!")
+    print(f"You lose, bitch! The correct number was {target}")
